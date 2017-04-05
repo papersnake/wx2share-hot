@@ -56,6 +56,7 @@ export default {
     ]),
     scrolltop () {
       console.log('scrollto')
+      console.log(document.body.clientHeight)
       window.scrollTo(0, 500)
     }
   },
