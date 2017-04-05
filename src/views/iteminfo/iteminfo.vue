@@ -1,0 +1,152 @@
+<template>
+<div>
+  <div class="warp">
+    <div v-if="item" class="iteminfo">
+      <ImgSlider :source="item.itempic" />
+      <div class="pricetag">
+        <priceTag :price="curprice" />
+        <div class="sellerinfo">
+          <div class="under-line">￥{{item.itemprice}}</div>
+          <div>已抢{{item.itemsellcount}}件</div>
+        </div>
+        <div class="leftinfo">
+          <div class="countinfo">优惠券共：{{item.couponamount}}张</div>
+          <div class="countpencent">
+            <mu-linear-progress mode="determinate" :size="10" :value="pencent" color="#FFE000"></mu-linear-progress>
+            <div class="nlayer">已抢{{pencent}}%</div>
+          </div>
+        </div>
+      </div>
+      <div class="intro">
+        <mu-float-button icon="share" secondary mini class="share-button"  @click="scrolltop"/>
+        <h1>{{ item.itemname }}</h1>
+        <div class="desc">
+          {{ item.coupondeno + ',有效期：' + item.couponstarttime + '到' + item.couponendtime }}
+        </div>
+      </div>
+      <itemDetail :itemid="item.itemid"/>
+
+    </div>
+  </div>
+  <loading v-if="loading"></loading>
+</div>
+
+</template>
+<script>
+import {mapGetters, mapActions} from 'vuex'
+import loading from '@/components/loading'
+import ImgSlider from '@/components/ItemSlider'
+import priceTag from '@/components/priceTag'
+import priceComputed from '@/common/priceComputed'
+import itemDetail from '@/components/ItemDetail'
+export default {
+  mounted () {
+    // this.$store.dispatch('fetchItemById', this.$route.params.id)
+    this.fetchItemById(this.$route.params.id)
+  },
+  destroyed () {
+    console.log('item destroyed')
+    this.clearItem()
+  },
+  mixins: [priceComputed],
+  methods: {
+    ...mapActions([
+      'fetchItemById',
+      'clearItem'
+    ]),
+    scrolltop () {
+      console.log('scrollto')
+      window.scrollTo(0, 500)
+    }
+  },
+  computed: {
+    ...mapGetters({
+      item: 'item',
+      loading: 'getloadState'
+    }),
+    pencent: function () {
+      return ((this.item.couponamount - this.item.couponamount) / this.item.couponamount) * 100
+    }
+  },
+  components: {
+    loading,
+    ImgSlider,
+    priceTag,
+    itemDetail
+  }
+}
+</script>
+<style scoped>
+.iteminfo{
+
+}
+
+.intro{
+  padding: 6px;
+  background-color: #FFF;
+  margin-bottom: 6px;
+}
+.intro .share-button {
+  float: right;
+}
+.pricetag{
+  display: flex;
+  height: 4rem;
+  background-color: #FF1100;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.mainprice{
+  display: inline-flex;
+  height: 4rem;
+  font-size: 2rem;
+  color: #fff;
+  line-height: 5rem;
+}
+.mainprice>span>span{
+  font-size: 3.5rem;
+}
+.sellerinfo{
+  display: inline-block;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  color: #fff;
+}
+.leftinfo{
+  margin-top: 1rem;
+  margin-left: auto;
+  color: #FFE000;
+}
+.intro>h1{
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  font-weight: 800;
+  margin: 0;
+}
+.under-line{
+  color: #e2e2e2;
+  text-decoration: line-through;
+}
+.countinfo{
+  margin-bottom: 0.2rem;
+}
+.mu-linear-progress {
+  background-color: #BD9F09;
+}
+.countpencent{
+  position: relative;
+}
+.nlayer{
+  position: absolute;
+  color:#FF1100;
+  width: 100%;
+  top: 0;
+  font-size: 6px;
+  height: 10px;
+  line-height: 10px;
+  text-align: center;
+}
+.desc{
+  color: red;
+}
+</style>
