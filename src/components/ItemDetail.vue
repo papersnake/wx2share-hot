@@ -29,24 +29,9 @@ export default {
       loadState: false
     }
   },
-  created () {
-    this.$Lazyload.$on('loaded', ({ el, src }) => {
-      // console.log(el)
-      // this.$emit('opened')
-    })
-  },
-  updated () {
-    console.log(document.body.clientHeight)
-  },
   methods: {
     toggle () {
       this.open = !this.open
-      this.$nextTick(function () {
-        console.log(this.$el.offsetTop)
-        console.log(document.body.clientHeight)
-        window.scrollTo(0, 100)
-        console.log('scrollTo postion')
-      })
       this.loadDetail()
     },
     loadDetail () {
@@ -62,8 +47,12 @@ export default {
             console.log(err)
           } else {
             console.log(data)
-            // console.log(this.$el)
+            console.log(this.$el)
             this.details = data.data.images
+            this.$nextTick(function () {
+              console.log(this.$el.offsetTop)
+              window.scrollTo(0, this.$el.offsetTop)
+            })
           }
         })
       }
@@ -102,7 +91,6 @@ export default {
 .itemdetail .detail-content{
   overflow: auto;
   overflow-x: none;
-  height: 800px;
   max-height: 1400px;
   transition: max-height .8s cubic-bezier(.445,.05,.55,.95);
 }
