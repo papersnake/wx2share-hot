@@ -3,6 +3,7 @@ import Router from 'vue-router'
 // import Hello from '@/components/Hello'
 import Home from '@/views/home/home'
 import Item from '@/views/iteminfo/iteminfo'
+import CateList from '@/views/categorylist/categorylist'
 
 Vue.use(Router)
 
@@ -17,6 +18,11 @@ export default new Router({
       path: '/item/:id',
       name: 'item',
       component: Item
+    },
+    {
+      path: '/cate/:catename',
+      name: 'clist',
+      component: CateList
     }
   ]
 })

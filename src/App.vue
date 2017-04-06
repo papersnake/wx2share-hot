@@ -7,8 +7,12 @@
   <mu-drawer :open="open" :docked="docked" @close="toggle()">
       <mu-list @itemClick="docked ? '' : toggle()">
         <mu-list-item title="首页" href="#/" />
-        <mu-list-item title="Menu Item 1" toggleNested :open="false">
-          <mu-list-item title="subMenu1" slot="nested"/>
+        <mu-list-item title="分类列表" toggleNested :open="false" v-if="categoryList">
+          <mu-list-item v-for="cate, index in categoryList"
+            :key="index"
+            :title="cate.itemcats"
+            :href="'#/cate/' + encodeURIComponent(cate.itemcats)"
+            slot="nested"/>
         </mu-list-item>
         <mu-list-item title="Menu Item 3"/>
         <mu-list-item v-if="docked" @click.native="open = false" title="Close"/>
@@ -21,18 +25,29 @@
 </template>
 
 <script>
+import Api from '@/services/api'
 export default {
   name: 'app',
+  mounted () {
+    this.fetchCategoryList()
+  },
   data () {
     return {
       open: true,
-      docked: true
+      docked: true,
+      categoryList: null
     }
   },
   methods: {
     toggle (flag) {
       this.open = !this.open
       this.docked = !flag
+    },
+    fetchCategoryList () {
+      Api.fetchCategoryList().then((response) => {
+        this.categoryList = response.data.cates
+        console.log(response)
+      })
     }
   }
 }

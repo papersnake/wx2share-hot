@@ -48,7 +48,7 @@ import ImgSlider from '@/components/ItemSlider'
 import priceTag from '@/components/priceTag'
 import priceComputed from '@/common/priceComputed'
 import itemDetail from '@/components/ItemDetail'
-import itemRecommend from '@/components/itemRecommend'
+import itemRecommend from '@/components/ItemRecommend'
 export default {
   data () {
     return {

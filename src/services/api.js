@@ -26,6 +26,10 @@ class Api {
       }
     }))
   }
+
+  static fetchCategoryList () {
+    return Promise.resolve(instance.get('/Api/tbk/cates'))
+  }
 }
 
 export default Api
