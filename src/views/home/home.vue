@@ -45,9 +45,8 @@ export default {
   data () {
     return {
       activeTab: 'tab1',
-      scroller: null,
+      scroller: null
       // loading: false,
-      page: 0
     }
   },
   created () {
@@ -64,6 +63,7 @@ export default {
   computed: {
     ...mapGetters({
       itemList: 'getItemList',
+      itemListPage: 'getItemListPage',
       loading: 'getloadState'
     })
   },
@@ -77,7 +77,7 @@ export default {
     getItemList () {
       console.log('getItemList')
       let postparam = {
-        page: this.page,
+        page: this.itemListPage,
         cats: null,
         searchkey: null,
         order: null,
@@ -88,7 +88,7 @@ export default {
     },
     loadMore () {
       // this.loading = true
-      this.page++
+      console.log(this.itemListPage)
       this.getItemList()
       // console.log(this.$refs.hotsGrid.$el.scrollHeight)
       // console.log(this.$refs.hotsGrid.$el.scrollTop)

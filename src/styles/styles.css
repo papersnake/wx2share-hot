@@ -3,3 +3,25 @@ body {
   font: 1rem/1.3 Microsoft YaHei,Helvetica,sans-serif;
   background: #f2f2f2;
 }
+
+.itemdetail{
+  background-color: #FFF;
+  margin-bottom: 6px;
+}
+
+.itemdetail .detail-header {
+  display: flex;
+  -webkit-box-pack: justify;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  height: 4rem;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 1px;
+}
+.itemdetail .detail-header .title {
+  line-height: 4rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}

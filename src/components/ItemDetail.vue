@@ -1,7 +1,8 @@
 <template>
   <div class="itemdetail">
     <div class="detail-header" @click="toggle">
-      <span class="title">商品详情</span>
+      <span class="title">商品详情(点击加载)</span>
+      <mu-circular-progress :size="40" v-show="loadState" />
       <div class="left">
         <mu-icon-button icon="keyboard_arrow_down"/>
       </div>
@@ -24,7 +25,8 @@ export default {
   data () {
     return {
       open: false,
-      details: null
+      details: null,
+      loadState: false
     }
   },
   methods: {
@@ -34,10 +36,12 @@ export default {
     },
     loadDetail () {
       if (this.details === null) {
+        this.loadState = true
         const detailUrl = `https://hws.m.taobao.com/cache/mtop.wdetail.getItemDescx/4.1/?data=%7Bitem_num_id%3A${this.itemid}%7D&type=jsonp&dataType=jsonp`
         jsonp(detailUrl, {
           name: 'jsonpcall'
         }, (err, data) => {
+          this.loadState = false
           if (err) {
             console.log('error')
             console.log(err)
@@ -53,12 +57,19 @@ export default {
         })
       }
     }
+  },
+  watch: {
+    $route () {
+      this.open = false
+      this.details = null
+    }
   }
 }
 </script>
 <style>
 .itemdetail{
   background-color: #FFF;
+  margin-bottom: 6px;
 }
 
 .itemdetail .detail-header {
@@ -69,12 +80,13 @@ export default {
   padding: 0 6px;
   height: 4rem;
   cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 1px;
 }
 .itemdetail .detail-header .title {
   line-height: 4rem;
   font-size: 1.5rem;
   font-weight: 500;
-  border-bottom: 1px solid #f0f0f0;
 }
 .itemdetail .detail-content{
   overflow: auto;

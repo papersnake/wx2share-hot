@@ -12,7 +12,7 @@
         <div class="leftinfo">
           <div class="countinfo">优惠券共：{{item.couponamount}}张</div>
           <div class="countpencent">
-            <mu-linear-progress mode="determinate" :size="10" :value="pencent" color="#FFE000"></mu-linear-progress>
+            <mu-linear-progress mode="determinate" :size="10" :value="pencent" color="#ffeb3b"></mu-linear-progress>
             <div class="nlayer">已抢{{pencent}}%</div>
           </div>
         </div>
@@ -25,8 +25,17 @@
         </div>
       </div>
       <itemDetail :itemid="item.itemid"/>
+      <itemRecommend :category="item.itemcats"/>
 
     </div>
+    <mu-paper class="bottombar">
+    <mu-bottom-nav :value="bottomNav" shift @change="handleChange">
+      <mu-bottom-nav-item value="movies" title="Movies" icon="ondemand_video" @click="scrolltop"/>
+      <mu-bottom-nav-item value="music" title="Music" icon="music_note"/>
+      <mu-bottom-nav-item value="books" title="Books" icon="books"/>
+      <mu-bottom-nav-item value="pictures" title="Pictures" icon="photo"/>
+    </mu-bottom-nav>
+  </mu-paper>
   </div>
   <loading v-if="loading"></loading>
 </div>
@@ -39,10 +48,17 @@ import ImgSlider from '@/components/ItemSlider'
 import priceTag from '@/components/priceTag'
 import priceComputed from '@/common/priceComputed'
 import itemDetail from '@/components/ItemDetail'
+import itemRecommend from '@/components/itemRecommend'
 export default {
+  data () {
+    return {
+      bottomNav: 'movies',
+      bottomNavColor: 'movies'
+    }
+  },
   mounted () {
     // this.$store.dispatch('fetchItemById', this.$route.params.id)
-    this.fetchItemById(this.$route.params.id)
+    this.reloadData()
   },
   destroyed () {
     console.log('item destroyed')
@@ -57,6 +73,13 @@ export default {
     scrolltop () {
       console.log('scrollto')
       window.scrollTo(0, 500)
+    },
+    handleChange (val) {
+      this.bottomNav = val
+    },
+    reloadData () {
+      this.fetchItemById(this.$route.params.id)
+      window.scrollTo(0, 0)
     }
   },
   computed: {
@@ -72,7 +95,14 @@ export default {
     loading,
     ImgSlider,
     priceTag,
-    itemDetail
+    itemDetail,
+    itemRecommend
+  },
+  watch: {
+    $route () {
+      console.log(this.$route.params.id)
+      this.reloadData()
+    }
   }
 }
 </script>
@@ -80,7 +110,9 @@ export default {
 .iteminfo{
 
 }
-
+.warp{
+  margin-bottom: 56px;
+}
 .intro{
   padding: 6px;
   background-color: #FFF;
@@ -92,7 +124,7 @@ export default {
 .pricetag{
   display: flex;
   height: 4rem;
-  background-color: #FF1100;
+  background-color: #f44336;
   padding-left: 6px;
   padding-right: 6px;
 }
@@ -115,7 +147,7 @@ export default {
 .leftinfo{
   margin-top: 1rem;
   margin-left: auto;
-  color: #FFE000;
+  color: #ffeb3b;
 }
 .intro>h1{
   font-size: 1.5rem;
@@ -131,7 +163,7 @@ export default {
   margin-bottom: 0.2rem;
 }
 .mu-linear-progress {
-  background-color: #BD9F09;
+  background-color: #f9a825;
 }
 .countpencent{
   position: relative;
@@ -148,5 +180,11 @@ export default {
 }
 .desc{
   color: red;
+}
+.bottombar{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 </style>

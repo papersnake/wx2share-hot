@@ -68,6 +68,7 @@ export default {
 	margin-top: 56px;
   overflow: hidden;
   max-width: 800px;
-  margin: 0 auto;
+  margin-left : auto;
+  margin-right: auto;
 }
 </style>

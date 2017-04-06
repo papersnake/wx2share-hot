@@ -1,15 +1,12 @@
 import vue from 'vue'
-import axios from 'axios'
 import Promise from 'bluebird'
+import Api from '@/services/api'
 
 Promise.config({
   longStackTraces: true,
   warnings: true // note, run node with --trace-warnings to see full stack traces for warnings
 })
 
-const instance = axios.create({
-  baseURL: 'http://www.wx2share.com'
-})
 // import services from '../../../services/services'
 
 const _get = ({url, query}, commit) => {
@@ -45,32 +42,11 @@ export const fetchCategoryList = ({commit}) => {
     })
 }
 
-/**
-export const fetchItemList = ({commit}, data) => {
-  const url = '/Api/tbk/items'
-  let param = JSON.stringify(data)
-  const query = `param=${param}`
-  return _get({url, query}, commit)
-      .then((json) => {
-        if (json.success) {
-          return commit('FETCH_ITEM_LIST_SUCCESS', json.items)
-        }
-        return Promise.reject(new Error(json.message))
-      })
-      .catch((error) => {
-        return Promise.reject(error)
-      })
-}**/
 export const fetchItemList = ({commit}, data) => {
   // let param = data;
   // console.log(data)
   if (commit) commit('START_LOADING')
-  return instance.get('/Api/tbk/items', {
-    params: {
-      param: JSON.stringify(data)
-    }
-  }).then((response) => {
-    console.log(response)
+  return Api.fetchItemList(data).then((response) => {
     if (commit) commit('FINISH_LOADING')
     let json = response.data
     if (json.success) {
@@ -84,11 +60,7 @@ export const fetchItemList = ({commit}, data) => {
 
 export const fetchItemById = ({commit}, id) => {
   if (commit) commit('START_LOADING')
-  return instance.get('/Api/tbk/item', {
-    params: {
-      id: id
-    }
-  }).then((response) => {
+  return Api.fetchItemById(id).then((response) => {
     if (commit) commit('FINISH_LOADING')
     let json = response.data
     if (json.success) {

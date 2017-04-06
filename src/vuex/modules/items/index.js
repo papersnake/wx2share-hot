@@ -6,6 +6,7 @@ const state = {
   categoryList: [],
   loading: false,
   itemList: [],
+  itemListPage: 0,
   hotitemList: [],
   curitem: null
 }

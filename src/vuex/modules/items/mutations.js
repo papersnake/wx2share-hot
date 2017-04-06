@@ -14,6 +14,7 @@ const mutations = {
     state.categoryList = data
   },
   [FETCH_ITEM_LIST_SUCCESS] (state, data) {
+    state.itemListPage++
     state.itemList = state.itemList.concat(data)
   },
   [GET_HOT_ITEM_LIST_SUCCESS] (state, data) {

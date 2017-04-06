@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
-import 'muse-ui/dist/theme-carbon.css'
+
 import App from './App'
 import router from './router'
 import VueLazyload from 'vue-lazyload'
