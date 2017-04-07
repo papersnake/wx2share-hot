@@ -1,9 +1,15 @@
 <template>
     <div class="categorylist">
-        hello categorylist {{value}}
+        <div class="header">
+          <filterNav></filterNav>
+        </div>
+        <div class="content">
+
+        </div>
     </div>
 </template>
 <script>
+import filterNav from '@/components/ListFilter'
 export default {
   data () {
     return {
@@ -17,6 +23,14 @@ export default {
     getCateName () {
       this.value = this.$route.params.catename
     }
+  },
+  watch: {
+    $route () {
+      this.value = this.$route.params.catename
+    }
+  },
+  components: {
+    filterNav
   }
 }
 </script>

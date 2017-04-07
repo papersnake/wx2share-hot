@@ -28,14 +28,22 @@
       <itemRecommend :category="item.itemcats"/>
 
     </div>
-    <mu-paper class="bottombar">
-    <mu-bottom-nav :value="bottomNav" shift @change="handleChange">
-      <mu-bottom-nav-item value="movies" title="Movies" icon="ondemand_video" @click="scrolltop"/>
-      <mu-bottom-nav-item value="music" title="Music" icon="music_note"/>
-      <mu-bottom-nav-item value="books" title="Books" icon="books"/>
-      <mu-bottom-nav-item value="pictures" title="Pictures" icon="photo"/>
-    </mu-bottom-nav>
-  </mu-paper>
+    <section class="action-container">
+      <div class="action-bar mui-flex align-center">
+        <div class="tohome cell">
+          首页
+          <router-link :to="{name: 'Home'}"></router-link>
+        </div>
+        <div class="grade cell">
+          收藏
+        </div>
+        <div class="share cell">
+          分享
+        </div>
+        <button class="totop cell" @click="gotoTop">回到顶部</button>
+        <button class="buy cell">立即购买</button>
+      </div>
+    </section>
   </div>
   <loading v-if="loading"></loading>
 </div>
@@ -73,6 +81,9 @@ export default {
     scrolltop () {
       console.log('scrollto')
       window.scrollTo(0, 500)
+    },
+    gotoTop () {
+      window.scrollTo(0, 0)
     },
     handleChange (val) {
       this.bottomNav = val
@@ -180,11 +191,5 @@ export default {
 }
 .desc{
   color: red;
-}
-.bottombar{
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 </style>

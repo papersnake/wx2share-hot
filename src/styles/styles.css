@@ -9,6 +9,31 @@ body {
   margin-bottom: 6px;
 }
 
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
 .itemdetail .detail-header {
   display: flex;
   -webkit-box-pack: justify;
@@ -24,4 +49,106 @@ body {
   line-height: 4rem;
   font-size: 1.5rem;
   font-weight: 500;
+}
+
+section {
+  background-color: #FFF;
+}
+.action-container{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.mui-flex{
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.mui-flex.align-center{
+  align-items: center;
+}
+.mui-flex>.cell{
+  flex: 1;
+  width: 0;
+  flex-basis: 0;
+  display: block;
+  padding: 0!importtant;
+  position: relative;
+}
+.action-bar {
+  color: #999;
+  border-top: 1px solid #e5e5e5;
+}
+.action-bar .cell{
+  height: 49px;
+  text-align: center;
+}
+
+.action-bar .cell a{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  top: 0;
+}
+
+.action-bar>button{
+  margin: 0;
+  border:none;
+  color:#FFF;
+  font-size: 15px;
+}
+.action-bar .tohome, .grade, .share{
+  max-width: 50px;
+  min-width: 26px;
+  border-right: 1px solid rgba(0,0,0,.05)
+}
+
+.action-bar .totop{
+  background: #FF9500;
+}
+
+.action-bar .buy{
+  background: #DD2727;
+}
+
+.action-bar .tohome::before{
+  content: 'home';
+}
+.action-bar .grade::before{
+  content: 'favorite_border';
+}
+.action-bar .share::before{
+  content: 'share';
+}
+
+.action-bar>div::before{
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 23px;  /* Preferred icon size */
+  display: block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+  width: 25px;
+  height: 25px;
+  margin: 6px auto 0;
+
 }

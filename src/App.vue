@@ -5,7 +5,7 @@
     <mu-text-field icon="search" slot="right" class="appbar-search-field" hintText="请输入搜索内容"/>
   </mu-appbar>
   <mu-drawer :open="open" :docked="docked" @close="toggle()">
-      <mu-list @itemClick="docked ? '' : toggle()">
+      <mu-list>
         <mu-list-item title="首页" href="#/" />
         <mu-list-item title="分类列表" toggleNested :open="false" v-if="categoryList">
           <mu-list-item v-for="cate, index in categoryList"
