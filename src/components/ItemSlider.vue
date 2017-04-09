@@ -42,6 +42,7 @@ export default {
   font-size: 30px;
   text-align: center;
   background: #fff;
+  max-height: 800px;
 }
 
 .itemimg {

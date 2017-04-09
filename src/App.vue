@@ -2,16 +2,16 @@
   <div id="app">
   <mu-appbar title="优券">
     <mu-icon-button icon='menu' slot="left" @click="toggle(true)"/>
-    <mu-text-field icon="search" slot="right" class="appbar-search-field" hintText="请输入搜索内容"/>
+    <mu-text-field icon="search" v-model="searchkey" slot="right" class="appbar-search-field" hintText="请输入搜索内容" @change="search"/>
   </mu-appbar>
   <mu-drawer :open="open" :docked="docked" @close="toggle()">
       <mu-list>
-        <mu-list-item title="首页" href="#/" />
+        <mu-list-item title="首页" href="/hot" />
         <mu-list-item title="分类列表" toggleNested :open="false" v-if="categoryList">
           <mu-list-item v-for="cate, index in categoryList"
             :key="index"
             :title="cate.itemcats"
-            :href="'#/cate/' + encodeURIComponent(cate.itemcats)"
+            :href="'/hot/cate/' + encodeURIComponent(cate.itemcats)"
             slot="nested"/>
         </mu-list-item>
         <mu-list-item title="Menu Item 3"/>
@@ -35,13 +35,19 @@ export default {
     return {
       open: true,
       docked: true,
-      categoryList: null
+      categoryList: null,
+      searchkey: ''
     }
   },
   methods: {
     toggle (flag) {
       this.open = !this.open
       this.docked = !flag
+    },
+    search () {
+      // this.gosearch()
+      console.log(this.searchkey)
+      this.$router.push({name: 'search', params: {searchKey: this.searchkey}})
     },
     fetchCategoryList () {
       Api.fetchCategoryList().then((response) => {

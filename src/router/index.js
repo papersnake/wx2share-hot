@@ -8,6 +8,8 @@ import CateList from '@/views/categorylist/categorylist'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
+  base: '/hot/',
   routes: [
     {
       path: '/',
@@ -22,6 +24,11 @@ export default new Router({
     {
       path: '/cate/:catename',
       name: 'clist',
+      component: CateList
+    },
+    {
+      path: '/search/:searchKey',
+      name: 'search',
       component: CateList
     }
   ]

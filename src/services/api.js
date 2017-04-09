@@ -30,6 +30,15 @@ class Api {
   static fetchCategoryList () {
     return Promise.resolve(instance.get('/Api/tbk/cates'))
   }
+
+  static createTpwd (data) {
+    console.log(data)
+    return Promise.resolve(instance.get('/Api/tpwd/tpwdcreate', {
+      params: {
+        param: JSON.stringify(data)
+      }
+    }))
+  }
 }
 
 export default Api

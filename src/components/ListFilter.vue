@@ -1,16 +1,36 @@
 <template>
   <div class="filterwarp">
-    <mu-paper class="listfilter bottomShadow">
-      <div class="o_item">综合</div>
-      <div class="o_item">销量</div>
-      <div class="o_item">新品</div>
-      <div class="o_item">价格</div>
+    <mu-paper class="listfilter">
+      <filterButton label="综合" value="id" class="o_item"/>
+      <filterButton label="销量" value="itemsellcount" class="o_item"/>
+      <filterButton label="新品" value="srrate" class="o_item"/>
+      <filterButton label="价格" value="itemprice" class="o_item"/>
       <div class="o_item o_style">
         <mu-icon-button tooltip="default tooltip" icon="more_vert" class="more"/>
       </div>
     </mu-paper>
   </div>
 </template>
+<script>
+import filterButton from '@/components/filterButton'
+export default {
+  name: 'listfilter',
+  props: {
+    value: {}
+  },
+  methods: {
+    handleItemClick (value, item) {
+      console.log(this.value)
+      if (this.value !== value) {
+        this.$emit('change', value)
+      }
+    }
+  },
+  components: {
+    filterButton
+  }
+}
+</script>
 <style>
 .listfilter{
   position: fixed;
@@ -19,6 +39,7 @@
   line-height: 40px;
   top: 56px;
   display: flex;
+  z-index: 1
 }
 .o_item{
   flex: 1;

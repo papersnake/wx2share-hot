@@ -26,7 +26,6 @@
       </div>
       <itemDetail :itemid="item.itemid"/>
       <itemRecommend :category="item.itemcats"/>
-
     </div>
     <section class="action-container">
       <div class="action-bar mui-flex align-center">
@@ -41,11 +40,15 @@
           分享
         </div>
         <button class="totop cell" @click="gotoTop">回到顶部</button>
-        <button class="buy cell">立即购买</button>
+        <button class="buy cell" @click="showDialog">立即购买</button>
       </div>
     </section>
   </div>
   <loading v-if="loading"></loading>
+  <mu-dialog :open="dialog" @show="show" title="复制淘口令购买" v-if="item">
+    <TpwdView :item="item" ref="tpwdview"></TpwdView>
+    <mu-flat-button label="确定" slot="actions" primary @click="close"/>
+  </mu-dialog>
 </div>
 
 </template>
@@ -57,9 +60,11 @@ import priceTag from '@/components/priceTag'
 import priceComputed from '@/common/priceComputed'
 import itemDetail from '@/components/ItemDetail'
 import itemRecommend from '@/components/ItemRecommend'
+import TpwdView from '@/components/TpwdView'
 export default {
   data () {
     return {
+      dialog: false,
       bottomNav: 'movies',
       bottomNavColor: 'movies'
     }
@@ -91,6 +96,16 @@ export default {
     reloadData () {
       this.fetchItemById(this.$route.params.id)
       window.scrollTo(0, 0)
+    },
+    showDialog () {
+      this.dialog = true
+    },
+    close () {
+      this.dialog = false
+    },
+    show () {
+      console.log('this show')
+      this.$refs.tpwdview.getTpwd()
     }
   },
   computed: {
@@ -107,7 +122,8 @@ export default {
     ImgSlider,
     priceTag,
     itemDetail,
-    itemRecommend
+    itemRecommend,
+    TpwdView
   },
   watch: {
     $route () {
