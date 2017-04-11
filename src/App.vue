@@ -6,13 +6,13 @@
   </mu-appbar>
   <mu-drawer :open="open" :docked="docked" @close="toggle()">
       <mu-list>
-        <mu-list-item title="首页" href="/hot" />
+        <mu-list-item>
+          <router-link exact to="/">首页</router-link>
+        </mu-list-item>
         <mu-list-item title="分类列表" toggleNested :open="false" v-if="categoryList">
-          <mu-list-item v-for="cate, index in categoryList"
-            :key="index"
-            :title="cate.itemcats"
-            :href="'/hot/cate/' + encodeURIComponent(cate.itemcats)"
-            slot="nested"/>
+          <mu-list-item v-for="cate, index in categoryList" slot="nested" :key="index">
+            <router-link exact :to="{name: 'clist', params: {catename: cate.itemcats}}">{{cate.itemcats}}</router-link>
+          </mu-list-item>
         </mu-list-item>
         <mu-list-item title="Menu Item 3"/>
         <mu-list-item v-if="docked" @click.native="open = false" title="Close"/>

@@ -1,12 +1,16 @@
 <template>
-<div class="tpwd-warp">
+<div class="tpwd-warp" v-clipboard="item" v-clipboard:success="copySuccess">
   <div class="tpwd-content">
     【{{item.itemname}}  原价{{item.itemprice}}元，抢券立省{{couponprice}}元】复制这条信息{{tpwd}}，打开手机淘宝购买！
+  </div>
+  <div class="tpwd-action">
+    <mu-raised-button :label="copyLabel" icon="content_copy" fullWidth secondary class="btnCopy" />
   </div>
   <Loading v-if="loading"/>
 </div>
 </template>
 <script>
+import Clipboard from 'Clipboard'
 import Loading from '@/components/loading'
 import Api from '@/services/api'
 export default {
@@ -20,7 +24,8 @@ export default {
     return {
       loading: true,
       successed: false,
-      tpwd: ''
+      tpwd: '',
+      copyLabel: '一键复制'
     }
   },
   created () {
@@ -53,6 +58,9 @@ export default {
           }
         })
       }
+    },
+    copySuccess () {
+      this.copyLabel = '复制成功'
     }
   },
   computed: {
@@ -82,6 +90,46 @@ export default {
   },
   components: {
     Loading
+  },
+  directives: {
+    clipboard: {
+      bind: function (el, binding, vnode) {
+        console.info('Bind')
+        if (binding.arg === 'success') {
+          el._v_clipboard_success = binding.value
+        } else {
+          const clipboard = new Clipboard('.btnCopy', {
+            text: (trigger) => {
+              return document.getElementsByClassName('tpwd-content')[0].innerText
+            }
+          })
+          clipboard.on('success', function (e) {
+            const callback = el._v_clipboard_success
+            callback && callback(e)
+          })
+          el._v_clipboard = clipboard
+        }
+      },
+      update: function (el, binding) {
+        console.info('UPDATE')
+        if (binding.arg === 'success') {
+          el._v_clipboard_success = binding.value
+        } else {
+          el._v_clipboard.text = function () {
+            return document.getElementsByClassName('tpwd-content')[0].innerText
+          }
+        }
+      },
+      unbind: function (el, binding) {
+        console.info('Ubind')
+        if (binding.arg === 'success') {
+          delete el._v_clipboard_success
+        } else {
+          el._v_clipboard.destroy()
+          delete el._v_clipboard
+        }
+      }
+    }
   }
 }
 </script>
