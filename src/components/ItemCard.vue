@@ -36,7 +36,7 @@ export default {
       } else {
         couponmount = couponpriceinfo[0]
       }
-
+      this.couponmount = couponmount
       return (this.item.itemprice - couponmount).toFixed(1)
     }
   },

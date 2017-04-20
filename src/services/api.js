@@ -39,6 +39,10 @@ class Api {
       }
     }))
   }
+
+  static getPromo () {
+    return Promise.resolve(instance.get('/Api/tpwd/promo'))
+  }
 }
 
 export default Api

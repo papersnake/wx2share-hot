@@ -5,6 +5,11 @@
     <mu-text-field icon="search" v-model="searchkey" slot="right" class="appbar-search-field" hintText="请输入搜索内容" @change="search"/>
   </mu-appbar>
   <mu-drawer :open="open" :docked="docked" @close="toggle()">
+      <div class="logo-warp">
+        <img :src="logo">
+        <span class="logo-title">优券</span>
+      </div>
+      <mu-divider/>
       <mu-list>
         <mu-list-item>
           <router-link exact to="/">首页</router-link>
@@ -14,7 +19,6 @@
             <router-link exact :to="{name: 'clist', params: {catename: cate.itemcats}}">{{cate.itemcats}}</router-link>
           </mu-list-item>
         </mu-list-item>
-        <mu-list-item title="Menu Item 3"/>
         <mu-list-item v-if="docked" @click.native="open = false" title="Close"/>
       </mu-list>
   </mu-drawer>
@@ -33,6 +37,7 @@ export default {
   },
   data () {
     return {
+      logo: require('@/assets/logo_small.png'),
       open: true,
       docked: true,
       categoryList: null,
@@ -58,7 +63,6 @@ export default {
   }
 }
 </script>
-
 <style lang="less">
 .mu-appbar{
 	position: fixed;
@@ -91,5 +95,23 @@ export default {
   max-width: 800px;
   margin-left : auto;
   margin-right: auto;
+}
+.mu-item-content>a{
+  display: block;
+  font-size: 16px;
+  color: rgba(0,0,0,0.875);
+}
+.logo-warp{
+  img{
+    display: block;
+    width: 10rem;
+    margin: auto;
+  }
+  .logo-title {
+    font-size: 2rem;
+    display: block;
+    text-align: center;
+    line-height: 2.2rem;
+  }
 }
 </style>

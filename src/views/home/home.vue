@@ -1,10 +1,6 @@
 <template>
 	<div class="home">
-		<swipe class="my-swipe">
-			<swipe-item class="slide1"></swipe-item>
-    		<swipe-item class="slide2"></swipe-item>
-    		<swipe-item class="slide3"></swipe-item>
-		</swipe>
+    <HomeSlider />
     <div>
       <mu-tabs :value="activeTab" @change="handleTabChange">
         <mu-tab value="tab1" title="最热"/>
@@ -40,6 +36,7 @@ import { Swipe, SwipeItem } from 'vue-swipe'
 // import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import ProductGrid from '@/components/ProductGrid'
+import HomeSlider from '@/components/HomeSlider'
 export default {
   name: 'home',
   data () {
@@ -53,10 +50,6 @@ export default {
     // this.getItemList()
   },
   mounted () {
-    // console.log(document.getElementById('hotGrid'))
-    // console.log(this.$refs.hotsGrid.$el.scrollHeight)
-    // console.log(this.$refs.hotsGrid.$el.scrollTop)
-    // this.scroller = this.$refs.hotsGrid.$el
     this.scroller = window
     this.getItemList()
   },
@@ -98,7 +91,8 @@ export default {
   components: {
     'swipe': Swipe,
     'swipe-item': SwipeItem,
-    ProductGrid
+    ProductGrid,
+    HomeSlider
   }
 }
 </script>
