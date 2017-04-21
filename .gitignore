@@ -3,3 +3,5 @@ node_modules/
 dist/
 npm-debug.log
 yarn-error.log
+/wx2share-hot.sublime-workspace
+/wx2share-hot.sublime-project
