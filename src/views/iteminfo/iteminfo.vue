@@ -36,11 +36,11 @@
         <div class="grade cell">
           收藏
         </div>
-        <div class="share cell">
+        <div class="share cell" @click="showPicShare">
           分享
         </div>
-        <button class="totop cell" @click="gotoTop">回到顶部</button>
-        <button class="buy cell" @click="showDialog">立即购买</button>
+        <button class="totop cell" @click="showPicShare">图片分享</button>
+        <button class="buy cell" @click="showDialog">领券购买</button>
       </div>
     </section>
   </div>
@@ -48,6 +48,10 @@
   <mu-dialog :open="dialog" @show="show" title="复制淘口令购买" v-if="item">
     <TpwdView :item="item" ref="tpwdview"></TpwdView>
     <mu-flat-button label="确定" slot="actions" primary @click="close"/>
+  </mu-dialog>
+  <mu-dialog :open="sharePicDialog" dialogClass="shareDlg" v-if="item">
+    <PicShare :item="item"></PicShare>
+    <mu-flat-button label="关闭" slot="actions" primary @click="close2"/>
   </mu-dialog>
 </div>
 
@@ -61,10 +65,12 @@ import priceComputed from '@/common/priceComputed'
 import itemDetail from '@/components/ItemDetail'
 import itemRecommend from '@/components/ItemRecommend'
 import TpwdView from '@/components/TpwdView'
+import PicShare from '@/components/PicShare'
 export default {
   data () {
     return {
       dialog: false,
+      sharePicDialog: false,
       bottomNav: 'movies',
       bottomNavColor: 'movies'
     }
@@ -100,8 +106,14 @@ export default {
     showDialog () {
       this.dialog = true
     },
+    showPicShare () {
+      this.sharePicDialog = true
+    },
     close () {
       this.dialog = false
+    },
+    close2 () {
+      this.sharePicDialog = false
     },
     show () {
       console.log('this show')
@@ -123,7 +135,8 @@ export default {
     priceTag,
     itemDetail,
     itemRecommend,
-    TpwdView
+    TpwdView,
+    PicShare
   },
   watch: {
     $route () {
@@ -134,7 +147,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style>
 .iteminfo{
 
 }
@@ -208,5 +221,8 @@ export default {
 }
 .desc{
   color: red;
+}
+.shareDlg {
+  width: 85%;
 }
 </style>
