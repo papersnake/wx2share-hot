@@ -128,6 +128,7 @@ export default {
   watch: {
     $route () {
       console.log(this.$route.params.id)
+      this.clearItem()
       this.reloadData()
     }
   }
