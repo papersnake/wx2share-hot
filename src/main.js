@@ -20,6 +20,9 @@ Vue.use(VueLazyload, {
   filter: {
     customer: function ({ el, src }) {
       // console.log(el)
+      if (location.protocol === 'https:') {
+        src = src.replace('http:', 'https:')
+      }
       if (src && el.getAttribute('fit')) {
         let w = window
         let d = document

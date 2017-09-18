@@ -7,7 +7,7 @@ Promise.config({
 })
 
 const instance = axios.create({
-  baseURL: 'http://www.wx2share.com'
+  baseURL: 'https://www.wx2share.com'
 })
 
 class Api {
@@ -34,6 +34,7 @@ class Api {
   static createTpwd (data) {
     console.log(data)
     return Promise.resolve(instance.get('/Api/tpwd/tpwdcreate', {
+    // return Promise.resolve(instance.get('/Api/tbk/wxappfav', {
       params: {
         param: JSON.stringify(data)
       }

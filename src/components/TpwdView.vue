@@ -54,7 +54,7 @@ export default {
           if (result.success) {
             this.loading = false
             this.successed = true
-            this.tpwd = result.model.model
+            this.tpwd = result.model.data.model
           }
         })
       }

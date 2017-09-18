@@ -26,7 +26,11 @@ export default {
       filters: 'id'
     }
   },
+  created () {
+    console.info('this page created')
+  },
   mounted () {
+    console.info('this page mounted')
     this.scroller = window
     this.getCateName()
     this.getCategoryItemList()

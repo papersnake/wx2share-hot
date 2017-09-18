@@ -38,7 +38,7 @@ export default {
   data () {
     return {
       logo: require('@/assets/logo_small.png'),
-      open: true,
+      open: false,
       docked: true,
       categoryList: null,
       searchkey: ''
